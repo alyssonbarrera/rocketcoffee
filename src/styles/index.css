@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+:root {
+    font-size: 62.5%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    max-width: 428px;
+    margin-inline: auto;
+    background-color: black;
+    font-family: 'Manrope', sans-serif;
+    height: 100%;
+}
+
+body.menu-extended {
+    overflow: hidden;
+}
+
+@media screen and (min-width: 428px) and (max-width: 1000px) {
+    body {
+        max-width: 100%;
+    }
+}
+
+@media screen and (min-width: 912px) {
+    body {
+        max-width: 100%;
+    }
+}
