@@ -6,7 +6,7 @@ import CloseMenu from './img/Close.svg'
 import { Menu } from './Menu';
 import { Button } from '../Button/Button';
 
-export function Navbar({openMenu = () => {}, closeMenu = () => {}, open}) {
+export function Navbar({openMenu = () => {}, open}) {
     {
         open ? document.body.classList.add("menu-extended") : document.body.classList.remove("menu-extended");
     }
@@ -18,8 +18,8 @@ export function Navbar({openMenu = () => {}, closeMenu = () => {}, open}) {
                     <img src={Logo} alt="Logo" />
                 </div>
                 <div className='navbar__menu'>
-                    <img onClick={() => openMenu(true)} src={MenuHamburguer} alt="Menu" />
-                    <img onClick={() => closeMenu(false)} src={CloseMenu} alt="Fecha Menu" />
+                    <img onClick={() => openMenu(true)} src={MenuHamburguer} alt="Menu" arial-label="Abrir menu" aria-expanded="false" />
+                    <img onClick={() => openMenu(false)} src={CloseMenu} alt="Fecha Menu" arial-label="Fechar menu" aria-expanded="true" />
                 </div>
                 <Menu />
                 <Button />

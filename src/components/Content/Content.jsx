@@ -1,6 +1,6 @@
 import './Content.css'
-import ImgCoffee from './img/Img Coffee.png'
 import { Button } from '../Button/Button';
+import secondImgCoffee from './img/rocket-coffee.png'
 
 export function Content() {
     return (
@@ -25,7 +25,7 @@ export function Content() {
                &lt; Great Code {"/>"}
                 </h2>
             </header>
-            <img src={ImgCoffee} alt="" />
+            <img src={secondImgCoffee} alt="" />
         </section>
 
         </>

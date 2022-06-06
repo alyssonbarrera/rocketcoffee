@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <Navbar openMenu={changesMenu} open={openMenu} closeMenu={changesMenu} />
+      <Navbar openMenu={changesMenu} open={openMenu}/>
       <Content />
     </>
   )

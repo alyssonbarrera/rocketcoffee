@@ -1,6 +1,5 @@
 .navbar {
     display: flex;
-    width: 100vw;
     position: sticky;
     top: 0;
 
@@ -111,6 +110,8 @@
         height: 321px;
         right: 0px;
         top: 0;
+
+        z-index: -1;
 
         background: #996DFF;
         filter: blur(400px);
