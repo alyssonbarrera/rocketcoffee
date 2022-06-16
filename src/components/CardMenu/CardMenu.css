@@ -1,0 +1,49 @@
+.card-menu__container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    padding-inline: 2rem;
+}
+
+.card-menu {
+    display: flex;
+    flex-direction: column;
+    max-width: 20%;
+    flex-grow: 1;
+
+    width: 30rem;
+
+    border: 2px solid #8257E5;
+    border-radius: 1rem;
+}
+
+.card-menu__header img {
+    border-radius: 1rem;
+    width: 100%;
+}
+
+.card-menu__content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.card-menu__content h2 {
+    font-size: 4rem;
+    color: white;
+    word-break: break-all;
+
+    margin: 0 1rem;
+}
+
+.card-menu__content p {
+    margin: 0 1rem;
+    font-size: 1.5rem;
+    
+    color: white;
+}
+
+.card__button {
+    width: 100%;
+    cursor: pointer;
+}

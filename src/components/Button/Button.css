@@ -1,4 +1,4 @@
-button {
+.button {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -17,28 +17,28 @@ button {
     transition: background .2s;
 }
 
-button:hover {
+.button:hover {
     background-color: #8257E5;
     transition: background .2s;
 }
 
 @media screen and (min-width: 1000px) {
-    button {
+    .button {
         width: 28rem;
-        height: 3.7rem;
+        height: auto;
         cursor: pointer;
         font-size: 1.1rem;
         letter-spacing: 0.02em;
         font-weight: 700;
     }
 
-    button img {
+    .button img {
         display: none;
     }
 }
 
 @media screen and (min-width: 1600px) {
-    button {
+    .button {
         font-size: 1.5rem;
         width: auto;
     }

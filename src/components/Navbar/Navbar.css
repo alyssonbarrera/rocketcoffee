@@ -71,6 +71,10 @@
     transition: all .5s;
 }
 
+.navbar__extended ul {
+    margin: 0;
+}
+
 .navbar__extended ul li {
     color: #A8A8B3;
     font-size: 1.8rem;       
