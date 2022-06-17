@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { Spin } from 'antd';
 import { Button } from '../Button';
+import { Navigate } from 'react-router-dom'
+
 import "./SignIn.css";
 
 export function SignIn() {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [logged, setLogged] = useState(false);
 
     async function login(event) {
       event.preventDefault();
@@ -30,13 +33,18 @@ export function SignIn() {
                 if (res.token) {
                     localStorage.setItem("token", res.token);
                     localStorage.setItem("user", res.userID);
+                    setLogged(true);
                 }
-                setError(true)
-            })
-          } catch (error) {
+              })
+            } catch (error) {
+            setError(true)
             console.log(error);
           }
         setLoading(false);
+    }
+
+    if(!error && logged) {
+        return <Navigate to="/dashboard" />
     }
     
     return (

@@ -24,12 +24,14 @@
 
 @media screen and (min-width: 1000px) {
     .button {
-        width: 28rem;
+        width: 17.2rem;
         height: auto;
-        cursor: pointer;
+
         font-size: 1.1rem;
         letter-spacing: 0.02em;
         font-weight: 700;
+        
+        cursor: pointer;
     }
 
     .button img {

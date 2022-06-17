@@ -2,9 +2,20 @@
     display: flex;
     position: sticky;
     top: 0;
+    z-index: 1;
 
     background-color: #000000;
 }
+
+.navbar__header a:not(.navbar__link) {
+    display: flex;
+    width: 100%;
+}
+
+.navbar__link {
+    display: none;
+}
+
 
 .navbar.extended .navbar__extended{
     top: 10;
@@ -105,6 +116,10 @@
         padding-left: 28rem;
         padding-right: 16.2rem;
         background-color: transparent;
+    }
+
+    .navbar a {
+        display: initial;
     }
 
     .navbar:before {

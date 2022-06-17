@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import "./CardMenu.css";
-import { InputNumber } from 'antd';
-import { Spin } from 'antd';
+import { InputNumber, Spin } from 'antd';
 
 export function CardMenu ({ buttonText, id, title, description, productQuantity, image }) {
 
@@ -54,7 +53,7 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
                     <p>{description}</p>
                     <p>Disponível: {productQuantity}</p>
                     <InputNumber min={0} max={productQuantity} defaultValue={1} onChange={onChange} />
-                    <button type='submit' onClick={(event) => {productEdit(event)}} className="button card__button">{buttonText}</button>
+                    <button type='submit' onClick={(event) => {productEdit(event)}} className="button card__button">{loading ? <Spin /> : buttonText}</button>
                 </div>
             </div>
         </>
