@@ -22,7 +22,7 @@ export function Navbar({openMenu = () => {}, open}) {
                     <img onClick={() => openMenu(false)} src={CloseMenu} alt="Fecha Menu" arial-label="Fechar menu" aria-expanded="true" />
                 </div>
                 <Menu />
-                <Button text="pegar meu café" />
+                <Button buttonText="pegar meu café" />
             </header>
         </nav>
     )

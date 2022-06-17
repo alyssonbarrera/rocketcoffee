@@ -67,7 +67,7 @@ export function SignUp() {
                     <input type="text" placeholder="Nome" name='name'/>
                     <input type="email" placeholder="Email" name='email' />
                     <input type="password" placeholder="Senha" name='password' />
-                    <Button className="signin__button" type="submit" text={loading ? <Spin /> : "Registrar"} />
+                    <Button className="signin__button" type="submit" buttonText={loading ? <Spin /> : "Registrar"} />
                 </form>
             </div>
         </main>

@@ -1,37 +1,62 @@
 import { useState, useEffect } from 'react';
 import { Spin } from 'antd';
-import { Button } from '../Button';
+import { CardMenu } from "../CardMenu/CardMenu"
+import { ProductsAdd } from './ProductsAdd';
+import { OrderCard } from './OrderCard';
 
+import coffee from "./img/coffee-placeholder.jpg"
 import "./Dashboard.css";
-import coffeeImage from "./img/coffee-placeholder.jpg"
 
 export function Dashboard () {
 
     const [user, setUser] = useState({});
-    const [products, setProducts] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [openAddProduct, setOpenAddProduct] = useState(false);
+    const [product, setProduct] = useState({});
+    const [selectedProducts, setSelectedProducts] = useState(false);
+    const [selectedOrders, setSelectedOrders] = useState(false);
+    const [orders, setOrders] = useState({});
 
-    const [data, setData] = useState({
-        name: "",
-        image: ""
-      });
-    const [image, setImage] = useState();
 
-    const [previewSource, setPreviewSource] = useState();
+    useEffect(() => {
 
-    const handleChange = (name) => (e) => {
-      const value = name === "image" ? e.target.files[0] : e.target.value;
-      previewFile(value);
-      setData({ ...data, [name]: value });
-    };
-      
-    const previewFile = (file) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        setPreviewSource(reader.result);
-      }
-    }
+        const userID = localStorage.getItem("user");
+
+        fetch(`http://localhost:3030/products`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${userID}`
+            },
+            credentials: 'same-origin'
+        })
+        .then(res => res.json())
+        .then(res => {
+            setProduct(res)
+            setLoading(false);
+        })
+        .catch(err => console.log(err))
+
+    }, [])
+
+    useEffect(() => {
+        setLoading(true);
+
+        const token = localStorage.getItem("token");
+        fetch(`http://localhost:3030/orders`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            credentials: 'same-origin'
+        })
+        .then(res => res.json())
+        .then(res => {
+            setOrders(res)
+            setLoading(false);
+        })
+    }, [])
 
     const userID = localStorage.getItem("user");
 
@@ -45,42 +70,9 @@ export function Dashboard () {
     useEffect(() => {
         fetch(`http://localhost:3030/products`)
         .then(res => res.json())
-        .then(res => setProducts(res))
+        .then(res => setProduct(res))
     }, [])
 
-    async function createProduct (event) {
-        event.preventDefault()
-        setLoading(true)
-        
-        const productImage = data.image
-        const productTitle = event.target.title.value
-        const productDescription = event.target.description.value
-
-        const formData = new FormData();
-
-        formData.append("image", productImage)
-        formData.append("productName", productTitle)
-        formData.append("productDescription", productDescription)
-
-        const token = localStorage.getItem("token");
-        try {
-            await fetch(`http://localhost:3030/products`, {
-                method: "POST",
-                body: formData,
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                },
-                Credentials: "same-origin"
-            })
-            .then(res => res.json())
-            .then(res => {
-                console.log(res)
-            })
-        } catch (error) {
-            console.log(error)
-        }
-        setLoading(false)
-    }
 
     return (
         <>
@@ -95,24 +87,67 @@ export function Dashboard () {
             </header>
             <main className='dashboard__main'>
                 <nav className='dashboard__main__nav'>
+                <button onClick={() => {
+                    !openAddProduct 
+                    ? setOpenAddProduct(true)
+                    : setOpenAddProduct(false); setSelectedProducts(false); setSelectedOrders(false)
+                    }}
+                    >{openAddProduct ? "-" : "+"}</button>
+                    
                     <ul>
-                        <li>Produtos</li>
-                        <li>Pedidos</li>
+                        <li onClick={() => {
+                            !selectedProducts 
+                            ? setSelectedProducts(true) 
+                            : setSelectedProducts(false); setSelectedOrders(false); setOpenAddProduct(false)
+                            }}
+                            >Produtos</li>
+                            
+                        <li onClick={() => {
+                            !selectedOrders ? setSelectedOrders(true) : setSelectedOrders(false); setSelectedProducts(false); setOpenAddProduct(false)
+                            }}
+                            >Pedidos</li>
                     </ul>
                 </nav>
-                <section className='dashboard__products--add'>
-                    <div>
-                        <form action="" onSubmit={(event) => createProduct(event)}>
-                            <label htmlFor="productImage"><img src={previewSource ? previewSource : coffeeImage} alt="" /></label>
-                            <input type="file" id='productImage' onChange={handleChange("image")} accept="image" />
-                            <input type="text" placeholder='título' name='title' />
-                            <input type="text" placeholder='descrição' name='description' />
-                            <Button className="signin__button" type="submit" text={loading ? <Spin /> : "Adicionar"} />
-                        </form>
-                    </div>
-                </section>
+                {
+                    openAddProduct && 
+                        <ProductsAdd />
+                }
+                
+                    
+                { selectedProducts && 
                 <section className='dashboard__produtos'>
+                    {loading ? <Spin /> :
+                    product.map((product) => 
+                            <CardMenu
+                                key={product._id}
+                                id={product._id}
+                                title={product.productName}
+                                description={product.productDescription}
+                                productQuantity={product.productQuantity}
+                                image={product.productImage}
+                                buttonText="Editar"
+                            />
+                    )
+                    }
                 </section>
+                }
+                { selectedOrders && 
+                    orders.map((order) =>{
+                        return <OrderCard key={order._id}
+                        orderImage={order.productImage}
+                        orderTitle={order.productName}
+                        orderDescription={order.productDescription}
+                        orderQuantity={order.productQuantity}
+                        orderCreatedAt={order.createdAt}
+                        />
+                    }).reverse()
+                }
+                {
+                    !selectedProducts && !selectedOrders && !openAddProduct && 
+                    <section className='dashboard__empty'>
+                        <h2>Selecione uma opção para visualizar</h2>
+                    </section>
+                }
             </main>
         </>
     )

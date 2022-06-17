@@ -46,7 +46,7 @@ export function SignIn() {
                 <form action="#" onSubmit={login}>
                     <input onClick={() => {setError(false)}} type="email" placeholder="Email" name='email' />
                     <input onClick={() => {setError(false)}} type="password" placeholder="Senha" name='password' />
-                    <Button className="signin__button" type="submit" text={loading ? <Spin /> : "Entrar"} />
+                    <Button className="signin__button" type="submit" buttonText={loading ? <Spin /> : "Entrar"} />
                     {error && <span>Credendicais inválidas</span>}
                 </form>
             </div>

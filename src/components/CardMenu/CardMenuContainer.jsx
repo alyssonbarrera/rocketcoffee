@@ -36,9 +36,12 @@ export function CardMenuContainer () {
                 product.map((product) => 
                         <CardMenu
                             key={product._id}
+                            id={product._id}
                             title={product.productName}
                             description={product.productDescription}
+                            productQuantity={product.productQuantity}
                             image={product.productImage}
+                            buttonText="Selecionar café"
                         />
                 )
             }
