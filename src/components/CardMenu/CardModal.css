@@ -1,0 +1,62 @@
+.card-menu__modal {
+    display: flex;
+    max-width: 20%;
+    min-width: 25rem;
+}
+
+.card-menu__modal h2, p {
+    color: white;
+    text-align: center;
+}
+
+.card-menu__modal h2 {
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.card-menu__modal-content p:nth-child(3) {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.card-menu__modal-content p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+
+}
+
+.card-menu__modal-content {
+    display: flex;
+    flex-direction: column;
+    background-color: #8257E5;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    max-width: 60rem;
+}
+
+.card-menu__modal-content img {
+    width: 100%;
+    height: auto;
+}
+
+.card-menu__modal-content button {
+
+    position: relative;
+
+    display: flex;
+    width: 3rem;
+    left: calc(100% - 2.7rem);
+    margin: 0;
+
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+    border: none;
+
+    cursor: pointer;
+}
+
+.card-menu__modal-content button img {
+    width: 100%;
+}

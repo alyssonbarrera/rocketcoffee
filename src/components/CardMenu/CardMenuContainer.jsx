@@ -1,11 +1,14 @@
 import { CardMenu } from "./CardMenu"
+import { CardModal } from "./CardModal"
 import { useState, useEffect } from 'react';
 import { Spin } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 
 export function CardMenuContainer () {
 
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(true);
+    const [cardModalOpen, setCardModalOpen] = useState(false);
 
     useEffect(() => {
 
@@ -32,6 +35,7 @@ export function CardMenuContainer () {
 
     return (
         <div className="card-menu__container">
+
             {loading ? <Spin /> :
                 product.map((product) => 
                         <CardMenu
@@ -45,6 +49,7 @@ export function CardMenuContainer () {
                         />
                 )
             }
+             <CardModal products={product} />
         </div>
     )
 }

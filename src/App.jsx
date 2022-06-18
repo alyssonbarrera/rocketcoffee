@@ -11,8 +11,6 @@ import { Provider } from "react-redux";
 
 function App() {
 
-  const [openMenu, changesMenu] = useState(false);
-
   return (
     <Provider store={store}>
       <Routes>

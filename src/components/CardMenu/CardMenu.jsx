@@ -1,13 +1,18 @@
 import { useState } from 'react';
 import "./CardMenu.css";
 import { InputNumber, Spin } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectedProduct } from '../../redux/action';
 
 export function CardMenu ({ buttonText, id, title, description, productQuantity, image }) {
+
+    const dispatch = useDispatch()
+    const state = useSelector(state => state)
+    console.log(state)
 
     const [quantity, setQuantity] = useState(0);
     const [productId, setProductId] = useState();
     const [loading, setLoading] = useState(false);
-    const [receiveCoffee, setReceiveCoffee] = useState({});
 
     const onChange = (value) => {
         setQuantity(value);
@@ -16,6 +21,9 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
       console.log(productId)
 
       async function productEdit (event) {
+
+        dispatch(selectedProduct(productId))
+
         if(quantity > 0) {
 
             event.preventDefault()
@@ -33,7 +41,6 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
             .then(res => res.json())
             .then(res => {
                 console.log(res)
-                setProductId(0)
             })
             .catch(err => console.log(err))
             setLoading(false);
