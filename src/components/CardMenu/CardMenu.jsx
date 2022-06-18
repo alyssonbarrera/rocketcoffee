@@ -13,6 +13,7 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
     const [quantity, setQuantity] = useState(0);
     const [productId, setProductId] = useState();
     const [loading, setLoading] = useState(false);
+    const [afterQuantity, setAfterQuantity] = useState(0);
 
     const onChange = (value) => {
         setQuantity(value);
@@ -30,7 +31,7 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
             setLoading(true)
     
             await fetch(`http://localhost:3030/products/${productId}`, {
-                method: "PUT",
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -41,6 +42,7 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
             .then(res => res.json())
             .then(res => {
                 console.log(res)
+                setAfterQuantity(res.currentQuantity)
             })
             .catch(err => console.log(err))
             setLoading(false);
@@ -48,6 +50,8 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
             alert("Por favor, escolha uma quantidade válida")
         }
     }
+
+    console.log(afterQuantity)
     return (
         <>
             <div className="card-menu">
@@ -58,8 +62,8 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
                 <div onFocus={() => {setProductId(id)}} className="card-menu__content">
                     <h2>{title}</h2>
                     <p>{description}</p>
-                    <p>Disponível: {productQuantity}</p>
-                    <InputNumber min={0} max={productQuantity} defaultValue={1} onChange={onChange} />
+                    <p>Disponível: {afterQuantity != 0 ? afterQuantity : productQuantity}</p>
+                    <InputNumber name='inputNumber' min={0} max={afterQuantity != 0 ? afterQuantity : productQuantity} defaultValue={0} placeholder="0" onChange={onChange} />
                     <button type='submit' onClick={(event) => {productEdit(event)}} className="button card__button">{loading ? <Spin /> : buttonText}</button>
                 </div>
             </div>

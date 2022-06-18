@@ -3,11 +3,18 @@ import { Spin } from 'antd';
 import { CardMenu } from "../CardMenu/CardMenu"
 import { ProductsAdd } from './ProductsAdd';
 import { OrderCard } from './OrderCard';
-
-import coffee from "./img/coffee-placeholder.jpg"
+import { useSelector } from 'react-redux';
+import { CardDashboard } from './CardDashboard';
+import { Card } from '../Card'
+import { Button } from '../Button'
 import "./Dashboard.css";
+import closeIcon from "./img/Close.svg"
+
 
 export function Dashboard () {
+
+    const state = useSelector(state => state)
+    console.log(state)
 
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
@@ -16,30 +23,32 @@ export function Dashboard () {
     const [selectedProducts, setSelectedProducts] = useState(false);
     const [selectedOrders, setSelectedOrders] = useState(false);
     const [orders, setOrders] = useState({});
+    const [productId, setProductId] = useState(0);
+    const [openEditProduct, setOpenEditProduct] = useState(false);
+    const [infoSelectedProduct, setInfoSelectedProduct] = useState({});
 
+    
+
+    console.log(productId)
 
     useEffect(() => {
-
         const userID = localStorage.getItem("user");
-
-        fetch(`http://localhost:3030/products`, {
+        const token = localStorage.getItem("token");
+        fetch(`http://localhost:3030/auth/user/${userID}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${userID}`
+                "Authorization": `Bearer ${token}`
             },
             credentials: 'same-origin'
         })
         .then(res => res.json())
         .then(res => {
-            setProduct(res)
-            setLoading(false);
+            setUser(res)
         })
-        .catch(err => console.log(err))
+    }, []);
 
-    }, [])
-
-    useEffect(() => {
+    const getOrders = () => {
         setLoading(true);
 
         const token = localStorage.getItem("token");
@@ -56,23 +65,38 @@ export function Dashboard () {
             setOrders(res)
             setLoading(false);
         })
-    }, [])
+    }
 
-    const userID = localStorage.getItem("user");
+    // useEffect(() => {
+    //     const interval = setInterval(()=> getOrders(), 1000)
+    //     return () => clearInterval(interval);
+    // }, [])
 
     useEffect(() => {
-        fetch(`http://localhost:3030/auth/user/${userID}`)
+        const userID = localStorage.getItem("user");
+
+        fetch(`http://localhost:3030/products`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${userID}`
+            },
+            credentials: 'same-origin'
+        })
         .then(res => res.json())
-        .then(res => setUser(res))
+        .then(res => {
+            setProduct(res)
+            setLoading(false);
+        })
         .catch(err => console.log(err))
     }, [])
 
     useEffect(() => {
-        fetch(`http://localhost:3030/products`)
-        .then(res => res.json())
-        .then(res => setProduct(res))
-    }, [])
-
+        if(state.selectedProduct !== null){
+        const filterSelectedProduct = product.filter(product => product._id === state.selectedProduct)
+        setInfoSelectedProduct(filterSelectedProduct[0])
+        }
+    })
 
     return (
         <>
@@ -117,21 +141,23 @@ export function Dashboard () {
                 { selectedProducts && 
                 <section className='dashboard__produtos'>
                     {loading ? <Spin /> :
-                    product.map((product) => 
-                            <CardMenu
-                                key={product._id}
-                                id={product._id}
-                                title={product.productName}
-                                description={product.productDescription}
-                                productQuantity={product.productQuantity}
-                                image={product.productImage}
-                                buttonText="Editar"
-                            />
-                    )
-                    }
+                product.map((product) => 
+                        <Card
+                            key={product._id}
+                            id={product._id}
+                            title={product.productName}
+                            description={product.productDescription}
+                            productQuantity={product.productQuantity}
+                            image={product.productImage}
+                            maxNumber={product.productQuantity}
+                            buttonText="Editar"
+                            button={<Button event={() => {setOpenEditProduct(true)}} buttonText={"editar"} />}
+                        />
+                )
+                }
                 </section>
                 }
-                { selectedOrders && 
+                { selectedOrders && orders.length != undefined && 
                     orders.map((order) =>{
                         return <OrderCard key={order._id}
                         orderImage={order.productImage}
@@ -148,7 +174,12 @@ export function Dashboard () {
                         <h2>Selecione uma opção para visualizar</h2>
                     </section>
                 }
-            </main>
+                { openEditProduct &&
+                    <CardDashboard
+                    buttonClose={<button onClick={() => setOpenEditProduct(false)} className='add__button'><img src={closeIcon} alt="" /></button>}
+                    id={state.selectedProduct} />
+                }
+                    </main>
         </>
     )
 }

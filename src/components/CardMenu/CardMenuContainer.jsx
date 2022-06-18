@@ -3,6 +3,7 @@ import { CardModal } from "./CardModal"
 import { useState, useEffect } from 'react';
 import { Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+import './CardMenu.css'
 
 export function CardMenuContainer () {
 

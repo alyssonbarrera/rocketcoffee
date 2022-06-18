@@ -1,5 +1,6 @@
 .card-menu__modal {
     display: flex;
+
     max-width: 20%;
     min-width: 25rem;
 }
@@ -12,9 +13,11 @@
 .card-menu__modal h2 {
     font-size: 4rem;
     font-weight: bold;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid white;
 }
 
-.card-menu__modal-content p:nth-child(3) {
+.card-menu__modal-content p:nth-child(2) {
     font-size: 2.5rem;
     font-weight: bold;
 }
@@ -29,6 +32,7 @@
 .card-menu__modal-content {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     background-color: #8257E5;
     padding: 1rem;
     border-radius: 0.5rem;

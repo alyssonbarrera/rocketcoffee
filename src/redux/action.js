@@ -9,7 +9,3 @@ export const menuOpen = (payload) => {
 export const selectedProduct = (payload) => {
     return {type: SELECTED_PRODUCT, payload};
 }
-
-export const cardModalOpen = (payload) => {
-    return {type: CARD_MODAL_OPEN, payload};
-}
