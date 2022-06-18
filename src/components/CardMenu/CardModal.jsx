@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import closeIcon from "./img/Close.svg"
 import { useState, useEffect } from "react";
 
-export function CardModal ({products}) {
+export function CardModal ({ buttonClose, products }) {
 
     const [currentProduct, setCurrentProduct] = useState({});
     console.log(currentProduct.productName)
@@ -22,6 +22,7 @@ export function CardModal ({products}) {
     return (
         <div className="card-menu__modal">
             <div className="card-menu__modal-content">
+                {buttonClose}
                <h2>{currentProduct.productName !== undefined ? "Aqui está seu café" : "Seu café aparecerá aqui"}</h2>
                <p>{currentProduct.productName}</p>
                <p>{currentProduct.productDescription}</p>

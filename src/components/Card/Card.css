@@ -1,7 +1,7 @@
 .card-menu__container {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 2rem;
 
     padding-inline: 2rem;
@@ -48,7 +48,6 @@
     font-size: 3rem;
     text-align: center;
     color: white;
-    word-break: break-all;
 
     margin: 0 1rem;
 }

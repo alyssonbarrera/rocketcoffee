@@ -3,9 +3,14 @@ import { CardModal } from "./CardModal"
 import { useState, useEffect } from 'react';
 import { Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import './CardMenu.css'
+import { selectedProduct } from "../../redux/action";
+import closeIcon from "./img/Close.svg"
 
 export function CardMenuContainer () {
+
+    const dispatch = useDispatch()
+    const state = useSelector(state => state)
+    console.log(state)
 
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(true);
@@ -50,7 +55,9 @@ export function CardMenuContainer () {
                         />
                 )
             }
-             <CardModal products={product} />
+             {
+                state.selectedProduct && <CardModal buttonClose={<button onClick={() => dispatch(selectedProduct(0))} className='add__button'><img src={closeIcon} alt="" /></button>} products={product} />
+             }
         </div>
     )
 }

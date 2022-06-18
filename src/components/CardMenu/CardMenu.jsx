@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import "./CardMenu.css";
 import { InputNumber, Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectedProduct } from '../../redux/action';
@@ -23,9 +22,9 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
 
       async function productEdit (event) {
 
-        dispatch(selectedProduct(productId))
+          if(quantity > 0) {
 
-        if(quantity > 0) {
+            dispatch(selectedProduct(productId))
 
             event.preventDefault()
             setLoading(true)
