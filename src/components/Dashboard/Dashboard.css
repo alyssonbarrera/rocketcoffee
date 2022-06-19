@@ -85,6 +85,15 @@
     cursor: pointer;
 }
 
+.dashboard__main__nav button:last-child {
+    margin-right: 0;
+    margin-left: 5rem;
+}
+
+.dashboard__main__nav button:active {
+    transform: scale(0.9);
+}
+
 .dashboard__pedidos__card {
     display: flex;
     align-items: center;
@@ -113,6 +122,7 @@
 
 .dashboard__pedidos__card p {
     font-size: 1.5rem;
+    text-align: left;
 }
 
 .dashboard__pedidos__card span {
@@ -151,4 +161,11 @@
     color: white;
 
     opacity: 0.5;
+}
+
+@media screen and (max-width: 577px) {
+    .dashboard__produtos {
+        justify-content: center;
+    }
+    
 }

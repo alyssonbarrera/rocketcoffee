@@ -7,7 +7,6 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
 
     const dispatch = useDispatch()
     const state = useSelector(state => state)
-    console.log(state)
 
     const [quantity, setQuantity] = useState(0);
     const [productId, setProductId] = useState();
@@ -17,8 +16,6 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
     const onChange = (value) => {
         setQuantity(value);
       };
-
-      console.log(productId)
 
       async function productEdit (event) {
 
@@ -50,7 +47,6 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
         }
     }
 
-    console.log(afterQuantity)
     return (
         <>
             <div className="card-menu">

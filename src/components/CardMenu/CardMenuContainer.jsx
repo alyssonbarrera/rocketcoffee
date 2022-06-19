@@ -10,7 +10,6 @@ export function CardMenuContainer () {
 
     const dispatch = useDispatch()
     const state = useSelector(state => state)
-    console.log(state)
 
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(true);
@@ -36,8 +35,6 @@ export function CardMenuContainer () {
         .catch(err => console.log(err))
 
     }, [])
-
-    console.log(product)
 
     return (
         <div className="card-menu__container">

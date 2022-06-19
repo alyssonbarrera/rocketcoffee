@@ -9,12 +9,12 @@ import { Card } from '../Card'
 import { Button } from '../Button'
 import "./Dashboard.css";
 import closeIcon from "./img/Close.svg"
+import refresh from "./img/refresh.svg"
 
 
 export function Dashboard () {
 
     const state = useSelector(state => state)
-    console.log(state)
 
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
@@ -26,10 +26,6 @@ export function Dashboard () {
     const [productId, setProductId] = useState(0);
     const [openEditProduct, setOpenEditProduct] = useState(false);
     const [infoSelectedProduct, setInfoSelectedProduct] = useState({});
-
-    
-
-    console.log(productId)
 
     useEffect(() => {
         const userID = localStorage.getItem("user");
@@ -71,6 +67,10 @@ export function Dashboard () {
     //     const interval = setInterval(()=> getOrders(), 1000)
     //     return () => clearInterval(interval);
     // }, [])
+
+    useEffect(() => {
+        getOrders()
+    }, [])
 
     useEffect(() => {
         const userID = localStorage.getItem("user");
@@ -131,6 +131,7 @@ export function Dashboard () {
                             }}
                             >Pedidos</li>
                     </ul>
+                    <button onClick={() => {getOrders()}}><img src={refresh} alt="" /></button>
                 </nav>
                 {
                     openAddProduct && 
