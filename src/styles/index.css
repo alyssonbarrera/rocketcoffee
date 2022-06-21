@@ -32,6 +32,16 @@ body {
     height: 100%;
 }
 
+body::-webkit-scrollbar {
+    background-color: #1d1d1d;
+    width: 10px;
+
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #8257E5;
+}
+
 body.menu-extended {
     overflow: hidden;
 }

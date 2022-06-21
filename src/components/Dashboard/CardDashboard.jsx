@@ -1,5 +1,14 @@
 import { useState } from 'react';
-import "./CardDashboard.css";
+
+import { DashboardContainer } from './CardDashboard.styled';
+import { DashboardContentContainer } from './CardDashboard.styled';
+import { DashboardContentContainerForm } from './CardDashboard.styled';
+import { DashboardContentContainerFormLabel } from './CardDashboard.styled';
+import { DashboardContentContainerFormLabelImg } from './CardDashboard.styled';
+import { DashboardContentContainerFormInputOne } from './CardDashboard.styled';
+import { DashboardContentContainerFormInputTwo } from './CardDashboard.styled';
+import { DashboardContentContainerFormInputThree } from './CardDashboard.styled';
+
 import { InputNumber, Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectedProduct } from '../../redux/action';
@@ -87,19 +96,26 @@ export function CardDashboard ({ buttonClose, buttonText, id, title, description
     console.log(afterQuantity)
     return (
         <>
-            <section className='dashboard__products--add'>
-            <div>
-                {buttonClose}
-                <form action="" onSubmit={(event) => productEdit(event)}>
-                    <label htmlFor="productImage"><img src={previewSource ? previewSource : coffeeImage} alt="" /></label>
-                    <input type="file" id='productImage' onChange={handleChange("image")} accept="image" />
-                    <input type="text" placeholder='título' name='productTitle' />
-                    <input type="text" placeholder='descrição' name='productDescription' />
-                    <InputNumber min={0} max={100} onChange={onChange} />
-                    <Button className="signin__button" type="submit" buttonText={loading ? <Spin /> : "Editar"} />
-                </form>
-            </div>
-        </section>
+            <DashboardContainer>
+                <DashboardContentContainer>
+                    {buttonClose}
+                    <DashboardContentContainerForm onSubmit={(event) => productEdit(event)}>
+
+                        <DashboardContentContainerFormLabel htmlFor="productImage">
+                            <DashboardContentContainerFormLabelImg src={previewSource ? previewSource : coffeeImage} alt="coffee" />
+                        </DashboardContentContainerFormLabel>
+
+                        <DashboardContentContainerFormInputOne id="productImage" onChange={handleChange("image")} />
+                        <DashboardContentContainerFormInputTwo placeholder="título" name="productTitle" />
+                        <DashboardContentContainerFormInputThree placeholder="descrição" name="productDescription" />
+
+                        <InputNumber min={0} max={100} onChange={onChange} />
+                        <Button className="signin__button" type="submit" buttonText={loading ? <Spin /> : "Editar"} />
+
+                    </DashboardContentContainerForm>
+                </DashboardContentContainer>
+            </DashboardContainer>
+
         </>
     )
 }

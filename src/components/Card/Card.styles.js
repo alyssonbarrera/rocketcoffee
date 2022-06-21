@@ -52,6 +52,7 @@ export const CardContentTitleStyled = styled.h2`
 `
 export const CardContentParagraphStyled = styled.p`
     font-size: 1.5rem;
+    text-align: center;
     color: white;
 
     margin: 0 1rem;

@@ -54,54 +54,39 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
     console.log(productId)
 
     return (
-        <>
-            <Card
+        <Card
+            event={
+                () => setProductId(id)
+            }
+            key={id}
+            id={id}
+            title={title}
+            description={description}
+            productQuantity={afterQuantity != 0 ? afterQuantity : productQuantity}
+            image={image}
+            button={
+                <Button
                 event={
-                    () => setProductId(id)
+                    (event) => {productEdit(event); setValue(0)}
                 }
-                key={id}
-                id={id}
-                title={title}
-                description={description}
-                productQuantity={afterQuantity != 0 ? afterQuantity : productQuantity}
-                image={image}
-                button={
-                    <Button
-                    event={
-                        (event) => {productEdit(event); setValue(0)}
-                    }
-                    buttonText={"Selecionar café"}
-                    />
-                }
-                inputNumber={
-                <InputNumber
-                min={0}
-                max={
-                    afterQuantity != 0
-                    ? afterQuantity
-                    : productQuantity
-                }
-                value={value}
-                onChange={
-                    (event) => {onChange(event); setValue()}
-                } 
-                
+                buttonText={"Selecionar café"}
                 />
             }
+            inputNumber={
+            <InputNumber
+            min={0}
+            max={
+                afterQuantity != 0
+                ? afterQuantity
+                : productQuantity
+            }
+            value={value}
+            onChange={
+                (event) => {onChange(event); setValue()}
+            } 
+            
             />
-            {/* <div className="card-menu">
-                <header className="card-menu__header">
-                    <img src={image} alt="" />
-                </header>
-                
-                <div onFocus={() => {setProductId(id)}} className="card-menu__content">
-                    <h2>{title}</h2>
-                    <p>{description}</p>
-                    <p>Disponível: {afterQuantity != 0 ? afterQuantity : productQuantity}</p>
-                    <InputNumber name='inputNumber' min={0} max={afterQuantity != 0 ? afterQuantity : productQuantity} defaultValue={0} placeholder="0" onChange={onChange} />
-                    <button type='submit' onClick={(event) => {productEdit(event)}} className="button card__button">{loading ? <Spin /> : buttonText}</button>
-                </div>
-            </div> */}
-        </>
+        }
+        />
     )
 }

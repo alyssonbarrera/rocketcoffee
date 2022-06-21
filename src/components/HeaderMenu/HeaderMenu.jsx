@@ -1,17 +1,21 @@
-import { useState } from 'react';
-import "./HeaderMenu.css";
+import { HeaderMenuContainer } from './HeaderMenu.styled';
+import { HeaderMenuContainerTitle } from './HeaderMenu.styled';
+
 import { Navbar } from "../Navbar";
-import { useDispatch, useSelector } from 'react-redux';
+
 import { menuOpen } from '../../redux/action';
+import { useDispatch } from 'react-redux';
 
 export function HeaderMenu () {
 
     const dispatch = useDispatch()
     
     return (
-        <header className="menu-header">
+        <HeaderMenuContainer>
             <Navbar openMenu={() => {dispatch(menuOpen(true))}} />
-            <h1>Escolha seu café</h1>
-        </header>
+            <HeaderMenuContainerTitle>
+                Escolha seu café
+            </HeaderMenuContainerTitle>
+        </HeaderMenuContainer>
     )
 }

@@ -12,6 +12,7 @@ import closeIcon from "./img/Close.svg"
 import refresh from "./img/refresh.svg"
 import { selectedProduct } from '../../redux/action';
 import { useDispatch } from 'react-redux';
+import addIcon from './img/addIcon.svg'
 
 export function Dashboard () {
 
@@ -48,16 +49,16 @@ export function Dashboard () {
     }, []);
 
     useEffect(() => {
+        setLoading(true);
         getOrders()
     }, [])
 
     useEffect(() => {
+        setLoading(true);
         getProducts()
     }, [])
 
     const getOrders = () => {
-
-        setLoading(true);
 
         const token = localStorage.getItem("token");
         
@@ -85,7 +86,6 @@ export function Dashboard () {
 
     const getProducts = () => {
 
-        setLoading(true);
         const userID = localStorage.getItem("user");
 
         fetch(`http://localhost:3030/products`, {
@@ -130,7 +130,7 @@ export function Dashboard () {
                     ? setOpenAddProduct(true)
                     : setOpenAddProduct(false); setSelectedProducts(false); setSelectedOrders(false)
                     }}
-                    >{openAddProduct ? "-" : "+"}</button>
+                    ><img src={addIcon} alt="" /></button>
                     
                     <ul>
                         <li onClick={() => {
@@ -145,11 +145,13 @@ export function Dashboard () {
                             }}
                             >Pedidos</li>
                     </ul>
-                    <button onClick={() => { getOrders(); getProducts()}}><img src={refresh} alt="" /></button>
+                    <button onClick={() => {getOrders(); getProducts()}}><img src={refresh} alt="" /></button>
                 </nav>
                 {
                     openAddProduct && 
-                        <ProductsAdd />
+                        <ProductsAdd 
+                        buttonClose={<button onClick={() => setOpenAddProduct(false)} className='add__button'><img src={closeIcon} alt="" /></button>}
+                        />
                 }
                 
                     
@@ -195,7 +197,7 @@ export function Dashboard () {
                     buttonClose={<button onClick={() => setOpenEditProduct(false)} className='add__button'><img src={closeIcon} alt="" /></button>}
                     id={state.selectedProduct} />
                 }
-                    </main>
+            </main>
         </>
     )
 }

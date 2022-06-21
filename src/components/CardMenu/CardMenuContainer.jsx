@@ -1,3 +1,4 @@
+import { CardMenuContainerSection } from "./CardMenuContainer.styled"
 import { CardMenu } from "./CardMenu"
 import { CardModal } from "./CardModal"
 import { useState, useEffect } from 'react';
@@ -5,7 +6,6 @@ import { Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectedProduct } from "../../redux/action";
 import closeIcon from "./img/Close.svg"
-import './CardMenuContainer.css'
 
 export function CardMenuContainer () {
 
@@ -38,9 +38,10 @@ export function CardMenuContainer () {
     }, [])
 
     return (
-        <div className="card-menu__container">
+        <CardMenuContainerSection>
 
-            {loading ? <Spin /> :
+            {loading ?
+            <Spin /> :
                 product.map((product) => 
                         <CardMenu
                             key={product._id}
@@ -53,9 +54,9 @@ export function CardMenuContainer () {
                         />
                 )
             }
-             {
-                state.selectedProduct && <CardModal buttonClose={<button onClick={() => dispatch(selectedProduct(0))} className='add__button'><img src={closeIcon} alt="" /></button>} products={product} />
-             }
-        </div>
+            {
+               state.selectedProduct && <CardModal buttonClose={<button onClick={() => dispatch(selectedProduct(0))} className='add__button'><img src={closeIcon} alt="" /></button>} products={product} />
+            }
+        </CardMenuContainerSection>
     )
 }

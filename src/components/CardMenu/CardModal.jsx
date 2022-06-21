@@ -1,7 +1,12 @@
-import "./CardModal.css"
-import { useSelector } from "react-redux";
-import closeIcon from "./img/Close.svg"
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+
+import { CardMenuModal } from "./CardModal.styled";
+import { CardMenuModalContent } from "./CardModal.styled";
+import { CardMenuModalContentTitle } from "./CardModal.styled";
+import { CardMenuModalContentParagraphOne } from "./CardModal.styled";
+import { CardMenuModalContentParagraphTwo } from "./CardModal.styled";
+import { CardMenuModalContentImg } from "./CardModal.styled";
 
 export function CardModal ({ buttonClose, products }) {
 
@@ -20,14 +25,22 @@ export function CardModal ({ buttonClose, products }) {
     })
 
     return (
-        <div className="card-menu__modal">
-            <div className="card-menu__modal-content">
+
+        <CardMenuModal>
+            <CardMenuModalContent>
                 {buttonClose}
-               <h2>{currentProduct.productName !== undefined ? "Aqui está seu café" : "Seu café aparecerá aqui"}</h2>
-               <p>{currentProduct.productName}</p>
-               <p>{currentProduct.productDescription}</p>
-               <img src={currentProduct.productImage} />
-            </div>
-        </div>
+                <CardMenuModalContentTitle>
+                    {currentProduct.productName !== undefined ? "Aqui está seu café" : "Seu café aparecerá aqui"}
+                </CardMenuModalContentTitle>
+                <CardMenuModalContentParagraphOne>
+                    {currentProduct.productName}
+                </CardMenuModalContentParagraphOne>
+                <CardMenuModalContentParagraphTwo>
+                    {currentProduct.productDescription}
+                </CardMenuModalContentParagraphTwo>
+                <CardMenuModalContentImg src={currentProduct.productImage} />
+            </CardMenuModalContent>
+        </CardMenuModal>
+
     )
 }
