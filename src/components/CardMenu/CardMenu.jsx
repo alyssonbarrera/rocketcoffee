@@ -16,7 +16,6 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
     const [afterQuantity, setAfterQuantity] = useState(0);
     const [value, setValue] = useState('0');
 
-    console.log(quantity)
     const onChange = (value) => {
         setQuantity(value);
       };
@@ -43,7 +42,6 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
             })
             .then(res => res.json())
             .then(res => {
-                console.log(res)
                 setAfterQuantity(res.currentQuantity)
             })
             .catch(err => console.log(err))
@@ -52,8 +50,6 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
             alert("Por favor, escolha uma quantidade válida")
         }
     }
-
-    console.log(productId)
 
     return (
         <Card

@@ -11,16 +11,13 @@ import { CardMenuModalContentImg } from "./CardModal.styled";
 export function CardModal ({ buttonClose, products }) {
 
     const [currentProduct, setCurrentProduct] = useState({});
-    console.log(currentProduct.productName)
 
     const state = useSelector(state => state)
-    console.log("o produto selecionado é", state.selectedProduct)
 
     useEffect(() => {
         if(state.selectedProduct !== null) {
             const product = products.find(product => product._id === state.selectedProduct)
             setCurrentProduct(product)
-            console.log("o produto atual é", currentProduct)
         }
     })
 
