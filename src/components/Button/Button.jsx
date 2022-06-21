@@ -1,8 +1,19 @@
-import './Button.css'
-import Vector from './img/Vector.svg'
+import { ButtonStyled } from './Button.styles'
+import { ButtonImageStyled } from './Button.styles'
 
-export function Button({ event, buttonText, type, especificClass }) {
+import './Button.css'
+
+export function Button({ event, buttonText, type, image, altImage, size }) {
     return (
-        <button onClick={event} type={type} className={`button ${especificClass != undefined && especificClass}`}> {buttonText} <img src={Vector} alt="" /></button>
+        <ButtonStyled data-variant_size={size} type={type} onClick={event}>
+            {buttonText}
+            {
+                image &&
+                <ButtonImageStyled>
+                    <img src={image} alt={altImage} />
+                </ButtonImageStyled>
+            }
+            
+        </ButtonStyled>
     )
 }

@@ -1,11 +1,17 @@
+import { CardStyled } from "./Card.styles"
+import { CardHeaderStyled } from "./Card.styles"
+import { CardContentStyled } from "./Card.styles"
+import { CardHeaderImgStyled } from "./Card.styles"
+import { CardContentTitleStyled } from "./Card.styles"
+import { CardContentParagraphStyled } from "./Card.styles"
+
 import { InputNumber } from 'antd';
 import { Button } from '../Button';
-import './Card.css';
 import { useState } from 'react';
 import { selectedProduct } from '../../redux/action';
 import { useDispatch, useSelector } from 'react-redux';
 
-export function Card({ button, buttonText, id, thisId, title, description, productQuantity, image, maxNumber }) {
+export function Card({ inputNumber, event, button, buttonText, id, thisId, title, description, productQuantity, image, maxNumber }) {
 
     const dispatch = useDispatch()
     const state = useSelector(state => state)
@@ -19,20 +25,30 @@ export function Card({ button, buttonText, id, thisId, title, description, produ
       console.log(quantity)
 
     return(
-        <>
-            <div className="card-menu">
-                <header className="card-menu__header">
-                    <img src={image} alt="" />
-                </header>
+        <CardStyled>
+
+            <CardHeaderStyled>
+                <CardHeaderImgStyled src={image} alt="café com leite" />
+            </CardHeaderStyled>
+
+            <CardContentStyled onFocus={event}>
+                <CardContentTitleStyled>
+                    {title}
+                </CardContentTitleStyled>
+
+                <CardContentParagraphStyled>
+                    {description}
+                </CardContentParagraphStyled>
+
+                <CardContentParagraphStyled>
+                    {productQuantity}
+                </CardContentParagraphStyled>
+
+                {inputNumber}
+                {button}
                 
-                <div onFocus={() =>dispatch(selectedProduct(id))} className="card-menu__content">
-                    <h2>{title}</h2>
-                    <p>{description}</p>
-                    <p>{productQuantity}</p>
-                    <InputNumber min={0} max={maxNumber} defaultValue={0} placeholder="0" onChange={(event) => {onChange(event)}} />
-                    {button}
-                </div>
-            </div>
-        </>
+            </CardContentStyled>
+
+        </CardStyled>
     )
 }

@@ -5,6 +5,7 @@ import { Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectedProduct } from "../../redux/action";
 import closeIcon from "./img/Close.svg"
+import './CardMenuContainer.css'
 
 export function CardMenuContainer () {
 

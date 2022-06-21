@@ -30,7 +30,7 @@ export function Navbar() {
                     <img onClick={() => dispatch(menuOpen(false))} src={CloseMenu} alt="Fecha Menu" arial-label="Fechar menu" aria-expanded="true" />
                 </div>
                 <Menu />
-                <Link className='navbar__link' to={"/menu"}><Button buttonText="pegar meu café" especificClass={'menu'} /></Link>
+                <Link className='navbar__link' to={"/menu"}><Button size="medium" buttonText="pegar meu café" especificClass={'menu'} /></Link>
             </header>
         </nav>
     )

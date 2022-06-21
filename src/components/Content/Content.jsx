@@ -2,6 +2,7 @@ import './Content.css'
 import { Button } from '../Button/Button';
 import secondImgCoffee from './img/rocket-coffee.png'
 import { Link } from 'react-router-dom';
+import Vector from "./img/Vector.svg";
 
 export function Content() {
     return (
@@ -13,7 +14,7 @@ export function Content() {
                 O café que fará seu código decolar para 
                 o próximo nível.
                 </h1>
-                <Link to={"/menu"}><Button buttonText="pegar meu café" /></Link>
+                <Link to={"/menu"}><Button image={Vector} buttonText="pegar meu café" /></Link>
             </header>
         </section>
 

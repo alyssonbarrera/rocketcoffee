@@ -10,9 +10,12 @@ import { Button } from '../Button'
 import "./Dashboard.css";
 import closeIcon from "./img/Close.svg"
 import refresh from "./img/refresh.svg"
-
+import { selectedProduct } from '../../redux/action';
+import { useDispatch } from 'react-redux';
 
 export function Dashboard () {
+
+    const dispatch = useDispatch()
 
     const state = useSelector(state => state)
 
@@ -44,10 +47,20 @@ export function Dashboard () {
         })
     }, []);
 
+    useEffect(() => {
+        getOrders()
+    }, [])
+
+    useEffect(() => {
+        getProducts()
+    }, [])
+
     const getOrders = () => {
+
         setLoading(true);
 
         const token = localStorage.getItem("token");
+        
         fetch(`http://localhost:3030/orders`, {
             method: "GET",
             headers: {
@@ -61,6 +74,7 @@ export function Dashboard () {
             setOrders(res)
             setLoading(false);
         })
+    
     }
 
     // useEffect(() => {
@@ -68,11 +82,10 @@ export function Dashboard () {
     //     return () => clearInterval(interval);
     // }, [])
 
-    useEffect(() => {
-        getOrders()
-    }, [])
 
-    useEffect(() => {
+    const getProducts = () => {
+
+        setLoading(true);
         const userID = localStorage.getItem("user");
 
         fetch(`http://localhost:3030/products`, {
@@ -89,7 +102,8 @@ export function Dashboard () {
             setLoading(false);
         })
         .catch(err => console.log(err))
-    }, [])
+        
+    }
 
     useEffect(() => {
         if(state.selectedProduct !== null){
@@ -131,7 +145,7 @@ export function Dashboard () {
                             }}
                             >Pedidos</li>
                     </ul>
-                    <button onClick={() => {getOrders()}}><img src={refresh} alt="" /></button>
+                    <button onClick={() => { getOrders(); getProducts()}}><img src={refresh} alt="" /></button>
                 </nav>
                 {
                     openAddProduct && 
@@ -153,12 +167,13 @@ export function Dashboard () {
                             maxNumber={product.productQuantity}
                             buttonText="Editar"
                             button={<Button event={() => {setOpenEditProduct(true)}} buttonText={"editar"} />}
+                            event={() => dispatch(selectedProduct(product._id))}
                         />
                 )
                 }
                 </section>
                 }
-                { selectedOrders && orders.length != undefined && 
+                { loading ? <Spin /> : selectedOrders && orders.length != undefined && 
                     orders.map((order) =>{
                         return <OrderCard key={order._id}
                         orderImage={order.productImage}

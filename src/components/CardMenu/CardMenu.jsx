@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { InputNumber, Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectedProduct } from '../../redux/action';
+import { Card } from '../Card'
+import { Button } from '../Button';
 
 export function CardMenu ({ buttonText, id, title, description, productQuantity, image }) {
 
@@ -12,7 +14,9 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
     const [productId, setProductId] = useState();
     const [loading, setLoading] = useState(false);
     const [afterQuantity, setAfterQuantity] = useState(0);
+    const [value, setValue] = useState('0');
 
+    console.log(quantity)
     const onChange = (value) => {
         setQuantity(value);
       };
@@ -47,9 +51,45 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
         }
     }
 
+    console.log(productId)
+
     return (
         <>
-            <div className="card-menu">
+            <Card
+                event={
+                    () => setProductId(id)
+                }
+                key={id}
+                id={id}
+                title={title}
+                description={description}
+                productQuantity={afterQuantity != 0 ? afterQuantity : productQuantity}
+                image={image}
+                button={
+                    <Button
+                    event={
+                        (event) => {productEdit(event); setValue(0)}
+                    }
+                    buttonText={"Selecionar café"}
+                    />
+                }
+                inputNumber={
+                <InputNumber
+                min={0}
+                max={
+                    afterQuantity != 0
+                    ? afterQuantity
+                    : productQuantity
+                }
+                value={value}
+                onChange={
+                    (event) => {onChange(event); setValue()}
+                } 
+                
+                />
+            }
+            />
+            {/* <div className="card-menu">
                 <header className="card-menu__header">
                     <img src={image} alt="" />
                 </header>
@@ -61,7 +101,7 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
                     <InputNumber name='inputNumber' min={0} max={afterQuantity != 0 ? afterQuantity : productQuantity} defaultValue={0} placeholder="0" onChange={onChange} />
                     <button type='submit' onClick={(event) => {productEdit(event)}} className="button card__button">{loading ? <Spin /> : buttonText}</button>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }
