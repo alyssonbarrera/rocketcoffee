@@ -1,8 +1,6 @@
 import { ButtonStyled } from './Button.styles'
 import { ButtonImageStyled } from './Button.styles'
 
-import './Button.css'
-
 export function Button({ event, buttonText, type, image, altImage, size }) {
     return (
         <ButtonStyled data-variant_size={size} type={type} onClick={event}>

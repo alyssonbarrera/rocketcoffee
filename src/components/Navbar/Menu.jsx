@@ -3,14 +3,18 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { menuOpen } from '../../redux/action';
+import { useLocation } from 'react-router-dom';
 
 export function Menu() {
 
     const menuOpened = useSelector(state => state.openMenu);
     const dispatch = useDispatch()
+    const location = useLocation()
+    const path = location.pathname
+    console.log(path)
 
     return (
-        <div className='navbar__extended'>
+        <div className={`navbar__extended ${path == '/menu' ? "location-menu" : 'location-home'}`}>
             <ul>
                 <li><Link to={"/"} onClick={() => {dispatch(menuOpen(false))}}>Home</Link></li>
                 <li><Link to={"/menu"} onClick={() => {dispatch(menuOpen(false))}}>Menu</Link></li>

@@ -59,8 +59,9 @@ export function ProductsAdd({ buttonClose }) {
         formData.append("productQuantity", quantity)
 
         const token = localStorage.getItem("token");
+        const URL = "https://backend-rocketcoffee.herokuapp.com/products";
         try {
-            await fetch(`http://localhost:3030/products`, {
+            await fetch(URL, {
                 method: "POST",
                 body: formData,
                 headers: {

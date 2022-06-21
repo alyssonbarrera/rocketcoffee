@@ -20,7 +20,9 @@ export function CardMenuContainer () {
 
         const userID = localStorage.getItem("user");
 
-        fetch(`http://localhost:3030/products`, {
+        const URL = `https://backend-rocketcoffee.herokuapp.com/products`;
+
+        fetch(URL, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

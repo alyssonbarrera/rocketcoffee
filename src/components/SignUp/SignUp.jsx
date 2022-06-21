@@ -44,9 +44,9 @@ export function SignUp() {
         formData.append("name", name);
         formData.append("email", email);
         formData.append("password", password);
-
+        const URL = "https://backend-rocketcoffee.herokuapp.com/auth/signup";
         try {
-            await fetch(`http://localhost:3030/auth/signup`, {
+            await fetch(URL, {
               method: "POST",
               body: formData
             })

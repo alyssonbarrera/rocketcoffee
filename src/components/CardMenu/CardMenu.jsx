@@ -29,8 +29,10 @@ export function CardMenu ({ buttonText, id, title, description, productQuantity,
 
             event.preventDefault()
             setLoading(true)
+
+            const URL = `https://backend-rocketcoffee.herokuapp.com/products/${productId}`
     
-            await fetch(`http://localhost:3030/products/${productId}`, {
+            await fetch(URL, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"

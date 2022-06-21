@@ -34,7 +34,8 @@ export function Dashboard () {
     useEffect(() => {
         const userID = localStorage.getItem("user");
         const token = localStorage.getItem("token");
-        fetch(`http://localhost:3030/auth/user/${userID}`, {
+        const URL = `https://backend-rocketcoffee.herokuapp.com/auth/user/${userID}`;
+        fetch(URL, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -61,8 +62,9 @@ export function Dashboard () {
     const getOrders = () => {
 
         const token = localStorage.getItem("token");
-        
-        fetch(`http://localhost:3030/orders`, {
+        const URL = "https://backend-rocketcoffee.herokuapp.com/orders";
+
+        fetch(URL, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -87,8 +89,9 @@ export function Dashboard () {
     const getProducts = () => {
 
         const userID = localStorage.getItem("user");
+        const URL = "https://backend-rocketcoffee.herokuapp.com/products";
 
-        fetch(`http://localhost:3030/products`, {
+        fetch(URL, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

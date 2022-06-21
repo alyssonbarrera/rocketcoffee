@@ -16,8 +16,9 @@ export function SignIn() {
       const email = event.target.email.value
       const password = event.target.password.value
         setLoading(true);
+        const URL = "https://backend-rocketcoffee.herokuapp.com/auth/signin";
         try {
-            await fetch(`http://localhost:3030/auth/signin`, {
+            await fetch(URL, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"

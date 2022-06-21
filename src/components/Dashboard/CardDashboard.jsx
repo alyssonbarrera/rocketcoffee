@@ -73,8 +73,9 @@ export function CardDashboard ({ buttonClose, buttonText, id, title, description
         if(quantity > 0) {
 
             setLoading(true)
-    
-            await fetch(`http://localhost:3030/products/${id}`, {
+            const URL = `https://backend-rocketcoffee.herokuapp.com/products/${id}`;
+
+            await fetch(URL, {
                 method: "PUT",
                 headers: {
                     "Authorization": `Bearer ${token}`
