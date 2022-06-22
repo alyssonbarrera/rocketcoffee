@@ -1,9 +1,9 @@
 import { ButtonStyled } from './Button.styles'
 import { ButtonImageStyled } from './Button.styles'
 
-export function Button({ event, buttonText, type, image, altImage, size }) {
+export function Button({ event, disabled, buttonText, type, image, altImage, size }) {
     return (
-        <ButtonStyled data-variant_size={size} type={type} onClick={event}>
+        <ButtonStyled disabled={disabled} data-variant_size={size} type={type} onClick={event}>
             {buttonText}
             {
                 image &&

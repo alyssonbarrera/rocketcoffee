@@ -15,7 +15,7 @@ import { selectedProduct } from '../../redux/action';
 import coffeeImage from "./img/coffee-placeholder.jpg"
 import { Button } from '../Button';
 
-export function CardDashboard ({ buttonClose, buttonText, id, title, description, productQuantity, image }) {
+export function CardDashboard ({ buttonClose, buttonText, id, productImage, productTitle, productDescription, productQuantity, image }) {
     
     const [data, setData] = useState({
         name: "",
@@ -23,6 +23,7 @@ export function CardDashboard ({ buttonClose, buttonText, id, title, description
     });
     
     const [previewSource, setPreviewSource] = useState();
+    const [sucessMessage, setSucessMessage] = useState(false);
 
     const handleChange = (name) => (e) => {
         const value = name === "image" ? e.target.files[0] : e.target.value;
@@ -49,52 +50,50 @@ export function CardDashboard ({ buttonClose, buttonText, id, title, description
         setQuantity(value);
       };
 
-      console.log(productId)
-      const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
-      async function productEdit (event) {
+  async function productEdit (event) {
+    event.preventDefault()
 
-        event.preventDefault()
+    const productImage = data.image
+    const productTitle = event.target.productTitle.value
+    const productDescription = event.target.productDescription.value
 
-        const productImage = data.image
-        const productTitle = event.target.productTitle.value
-        const productDescription = event.target.productDescription.value
+    const formData = new FormData();
 
-        const formData = new FormData();
+    formData.append("image", productImage)
+    formData.append("productName", productTitle)
+    formData.append("productDescription", productDescription)
+    formData.append("productQuantity", quantity)
 
-        formData.append("image", productImage)
-        formData.append("productName", productTitle)
-        formData.append("productDescription", productDescription)
-        formData.append("productQuantity", quantity)
-
-        dispatch(selectedProduct(productId))
-        console.log(formData)
-
-        if(quantity > 0) {
-
-            setLoading(true)
-            const URL = `https://backend-rocketcoffee.herokuapp.com/products/${id}`;
-
-            await fetch(URL, {
-                method: "PUT",
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                },
-                body: formData
-            })
-            .then(res => res.json())
-            .then(res => {
-                console.log(res)
-                setAfterQuantity(res.currentQuantity)
-            })
-            .catch(err => console.log(err))
-            setLoading(false);
-        } else {
-            alert("Por favor, preencha todos os campos")
-        }
+    if(quantity > 0) {
+        setLoading(true)
+        const URL = `https://backend-rocketcoffee.herokuapp.com/products/${id}`;
+        await fetch(URL, {
+            method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+            body: formData
+        })
+        .then(res => res.json())
+        .then(res => {
+            setAfterQuantity(res.currentQuantity)
+        })
+        .catch(err => console.log(err))
+        setLoading(false);
+        setSucessMessage(true);
+    } else {
+        alert("Por favor, preencha todos os campos")
+    }
+  }
+  
+    const buttonMessage = () => {
+        if(loading) return <Spin />
+        if(sucessMessage) return "Produto atualizado com sucesso!"
+        return "Editar"
     }
 
-    console.log(afterQuantity)
     return (
         <>
             <DashboardContainer>
@@ -103,15 +102,15 @@ export function CardDashboard ({ buttonClose, buttonText, id, title, description
                     <DashboardContentContainerForm onSubmit={(event) => productEdit(event)}>
 
                         <DashboardContentContainerFormLabel htmlFor="productImage">
-                            <DashboardContentContainerFormLabelImg src={previewSource ? previewSource : coffeeImage} alt="coffee" />
+                            <DashboardContentContainerFormLabelImg src={productImage ? productImage : coffeeImage} alt="coffee" />
                         </DashboardContentContainerFormLabel>
 
                         <DashboardContentContainerFormInputOne id="productImage" onChange={handleChange("image")} />
-                        <DashboardContentContainerFormInputTwo placeholder="título" name="productTitle" />
-                        <DashboardContentContainerFormInputThree placeholder="descrição" name="productDescription" />
+                        <DashboardContentContainerFormInputTwo placeholder="título" defaultValue={productTitle} name="productTitle" />
+                        <DashboardContentContainerFormInputThree placeholder="descrição" defaultValue={productDescription} name="productDescription" />
 
-                        <InputNumber min={0} max={100} onChange={onChange} />
-                        <Button className="signin__button" type="submit" buttonText={loading ? <Spin /> : "Editar"} />
+                        <InputNumber min={0} max={100} onChange={onChange} defaultValue={productQuantity} />
+                        <Button className="signin__button" type="submit" buttonText={buttonMessage()} />
 
                     </DashboardContentContainerForm>
                 </DashboardContentContainer>

@@ -7,11 +7,15 @@ import { OrderCardContentLeftTextTitle } from './OrderCard.styled'
 import { OrderCardContentLeftTextParagraph } from './OrderCard.styled'
 import { OrderCardContentRight } from './OrderCard.styled'
 import { OrderCardContentRightText } from './OrderCard.styled'
+import { format } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR'
 
 export function OrderCard({ orderImage, orderTitle, orderDescription, orderQuantity, orderCreatedAt }) {
+
+    const formattedDate = format(orderCreatedAt, " d ' de ' MMMM ' • ' k'h'mm", { locale: ptBR });
+    
     return (
 
-        <OrderCardContainer>
             <OrderCardContent>
                 <OrderCardContentLeft>
                     
@@ -36,12 +40,11 @@ export function OrderCard({ orderImage, orderTitle, orderDescription, orderQuant
                     </OrderCardContentRightText>
 
                     <OrderCardContentRightText>
-                        Feito em: {orderCreatedAt}
+                        Feito em: {formattedDate}
                     </OrderCardContentRightText>
 
                 </OrderCardContentRight>
             </OrderCardContent>
-        </OrderCardContainer>
        
     )
 }

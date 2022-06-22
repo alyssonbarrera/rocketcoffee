@@ -12,18 +12,7 @@ import { selectedProduct } from '../../redux/action';
 import { useDispatch, useSelector } from 'react-redux';
 
 export function Card({ inputNumber, event, button, buttonText, id, thisId, title, description, productQuantity, image, maxNumber }) {
-
-    const dispatch = useDispatch()
-    const state = useSelector(state => state)
-    console.log(state)
-
-    const [quantity, setQuantity] = useState(0);
-
-    const onChange = (value) => {
-        setQuantity(value);
-      };
-      console.log(quantity)
-
+    
     return(
         <CardStyled>
 

@@ -13,6 +13,7 @@ import refresh from "./img/refresh.svg"
 import { selectedProduct } from '../../redux/action';
 import { useDispatch } from 'react-redux';
 import addIcon from './img/addIcon.svg'
+import { OrderCardContainer } from './OrderCard.styled'
 
 export function Dashboard () {
 
@@ -31,6 +32,7 @@ export function Dashboard () {
     const [openEditProduct, setOpenEditProduct] = useState(false);
     const [infoSelectedProduct, setInfoSelectedProduct] = useState({});
 
+    
     useEffect(() => {
         const userID = localStorage.getItem("user");
         const token = localStorage.getItem("token");
@@ -178,17 +180,19 @@ export function Dashboard () {
                 }
                 </section>
                 }
-                { loading ? <Spin /> : selectedOrders && orders.length != undefined && 
-                    orders.map((order) =>{
-                        return <OrderCard key={order._id}
-                        orderImage={order.productImage}
-                        orderTitle={order.productName}
-                        orderDescription={order.productDescription}
-                        orderQuantity={order.productQuantity}
-                        orderCreatedAt={order.createdAt}
-                        />
-                    }).reverse()
-                }
+                <OrderCardContainer>
+                    { loading ? <Spin /> : selectedOrders && orders.length != undefined && 
+                        orders.map((order) =>{
+                            return <OrderCard key={order._id}
+                            orderImage={order.productImage}
+                            orderTitle={order.productName}
+                            orderDescription={order.productDescription}
+                            orderQuantity={order.productQuantity}
+                            orderCreatedAt={new Date(order.createdAt)}
+                            />
+                        }).reverse()
+                    }
+                </OrderCardContainer>
                 {
                     !selectedProducts && !selectedOrders && !openAddProduct && 
                     <section className='dashboard__empty'>
@@ -197,6 +201,10 @@ export function Dashboard () {
                 }
                 { openEditProduct &&
                     <CardDashboard
+                    productImage={infoSelectedProduct?.productImage}
+                    productTitle={infoSelectedProduct?.productName}
+                    productDescription={infoSelectedProduct?.productDescription}
+                    productQuantity={infoSelectedProduct?.productQuantity}
                     buttonClose={<button onClick={() => setOpenEditProduct(false)} className='add__button'><img src={closeIcon} alt="" /></button>}
                     id={state.selectedProduct} />
                 }

@@ -4,9 +4,9 @@ export const HeaderMenuContainer = styled.header`
 
 `
 export const HeaderMenuContainerTitle = styled.h1`
-    padding-block: 1rem 5rem;
+    padding-block: 3rem 3rem;
 
-    font-size: 4rem;
+    font-size: 3rem;
     text-align: center;
     color: white;
 `
