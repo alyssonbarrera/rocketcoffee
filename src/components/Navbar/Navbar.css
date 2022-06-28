@@ -17,7 +17,7 @@
 }
 
 
-.navbar.extended .navbar__extended{
+.navbar.extended .navbar__extended {
     top: 10;
     right: 0;
     transition: all .5s;
@@ -31,11 +31,11 @@
     display: none; 
 }
 
-.navbar.extended .navbar__menu img:first-child{
+.navbar.extended .navbar__menu img:first-child {
     display: none;
 } 
 
-.navbar.extended .navbar__menu img:last-child{
+.navbar.extended .navbar__menu img:last-child {
     display: initial;
 } 
 
